@@ -13,18 +13,14 @@
 			</section>
 		</template>
 		<script>
-			const temp1 = document.querySelector("#myTemp").content;
+			const temp = document.querySelector("#myTemp").content;
 			const parent = document.querySelector("main");
 
-			const teachers = ["Jonas", "Herman", "Jens", "Alan"]
-
-			teachers.forEach(show);
-
-			function show (person){
-				const clone1 = temp1.cloneNode(true);
-				clone1.querySelector("h2").textContent=person;
-				clone1.querySelector("p").textContent=person + " is a teacher.";
-				parent.appendChild(clone1);
+			for(let i=1; i<=10; i++){
+				const clone = temp.cloneNode(true);
+				clone.querySelector("h2").textContent="Header " + i;
+				clone.querySelector("p").textContent="Some paragraph copy related to article nr " + i;
+				parent.appendChild(clone);
 			}
 		</script>
 	</body>
