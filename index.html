@@ -16,27 +16,16 @@
 			const temp1 = document.querySelector("#myTemp").content;
 			const parent = document.querySelector("main");
 
-			const persons = [
-				{
-					name: "Herman",
-					title: "Team coordinator"
-				},
-				{
-					name: "Jens",
-					title: "Lecturer"
-				},
-				{
-					name: "Jonas",
-					title: "JS expert"
-				}
-			]
+			const teachers = ["Jonas", "Herman", "Jens", "Alan"]
 
-			persons.forEach(person=>{
+			teachers.forEach(show);
+
+			function show (person){
 				const clone1 = temp1.cloneNode(true);
-				clone1.querySelector("h2").textContent=person.name;
-				clone1.querySelector("p").textContent=person.title;
+				clone1.querySelector("h2").textContent=person;
+				clone1.querySelector("p").textContent=person + " is a teacher.";
 				parent.appendChild(clone1);
-			});
+			}
 		</script>
 	</body>
 </html>
