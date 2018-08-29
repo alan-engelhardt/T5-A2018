@@ -3,25 +3,37 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Templates</title>
+		<style>
+			main{
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+				grid-gap: .5em;
+			}
+			section{
+				background-color: lightblue;
+				padding: .5em;
+			}
+		</style>
 	</head>
 	<body>
 		<main></main>
-		<template id="myTemp">
+		<template id="myTemplate">
 			<section>
 				<h2>Header</h2>
 				<p>Paragraph</p>
 			</section>
 		</template>
 		<script>
-			const temp = document.querySelector("#myTemp").content;
+			const temp = document.querySelector("#myTemplate").content;
 			const parent = document.querySelector("main");
 
-			for(let i=1; i<=10; i++){
+			for(let counter=1; counter<=10; counter++){
 				const clone = temp.cloneNode(true);
-				clone.querySelector("h2").textContent="Header " + i;
-				clone.querySelector("p").textContent="Some paragraph copy related to article nr " + i;
+				clone.querySelector("h2").textContent="Header " + counter;
+				clone.querySelector("p").textContent="Some paragraph copy related to article nr " + counter;
 				parent.appendChild(clone);
 			}
+
 		</script>
 	</body>
 </html>
