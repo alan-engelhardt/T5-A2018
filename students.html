@@ -11,7 +11,7 @@
             grid-gap: .5em;
         }
 
-        section {
+        article {
             background-color: lightblue;
             padding: .5em;
         }
@@ -23,9 +23,10 @@
     <main></main>
     <template id="myTemplate">
         <article>
-            <h2>NAME</h2>
-            <h3>YEAR - MONTH - DAY</h3>
-            <div class="avatar"></div>
+            <h2>name</h2>
+            <h3>studyLine</h3>
+            <p>Skills:</p>
+            <ul class="skills"></ul>
         </article>
     </template>
     <script>
@@ -271,6 +272,24 @@
                 ]
             }
         ];
+		const template = document.querySelector("#myTemplate").content;
+		const main = document.querySelector("main");
+
+		students.forEach(showStud);
+
+		function showStud(student){
+			const clone = template.cloneNode(true);
+			clone.querySelector("h2").textContent=student.firstName;
+			clone.querySelector("h3").textContent=student.studyLine;
+			const ul = clone.querySelector("ul");
+			student.skills.forEach(skill=>{
+				const newLi = document.createElement("li");
+				newLi.textContent=skill;
+				console.log(newLi);
+				ul.appendChild(newLi);
+			})
+			main.appendChild(clone);
+		}
     </script>
 </body>
 
