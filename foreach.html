@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+
+</head>
+<body>
+
+  <main>
+
+  </main>
+  <template id="teacherTemplate">
+    <article class="teacher">
+      <h1>NAME</h1>
+      <p class="vacation">Had a lovely vacation in <span>SOMEHERE</span></p>
+    </article>
+  </template>
+  <script>
+    "use strict";
+  const teachers = [
+    {
+      name: "Alan",
+      spentVacationAt: "Greece",
+      gender: "male"
+    },
+    {
+      name: "Jonas",
+      spentVacationAt: "Bornholm",
+      gender: "male"
+    },
+    {
+      name: "Gullan",
+      spentVacationAt: "at home",
+      gender: "martian"
+    }
+  ];
+    /*
+    1. grab the template
+    2. clone it
+    3. cgange content
+    4. append it
+    */
+    const template = document.querySelector("#teacherTemplate").content;
+    console.log(template)
+    const parent = document.querySelector("main");
+    teachers.forEach(whoWentWhere)
+
+
+    function whoWentWhere(aSingleTeacher){
+      const clone = template.cloneNode(true);
+      clone.querySelector("h1").textContent=aSingleTeacher.name;
+      clone.querySelector(".vacation span").textContent= aSingleTeacher.spentVacationAt;
+
+      parent.appendChild(clone);
+
+    }
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>

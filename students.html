@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Templates</title>
+    <style>
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+            grid-gap: .5em;
+        }
+
+        section {
+            background-color: lightblue;
+            padding: .5em;
+        }
+
+    </style>
+</head>
+
+<body>
+    <main></main>
+    <template id="myTemplate">
+        <article>
+            <h2>NAME</h2>
+            <h3>YEAR - MONTH - DAY</h3>
+            <div class="avatar"></div>
+        </article>
+    </template>
+    <script>
+        const students = [
+          {
+                firstName: "Dorota",
+                lastName: "Szymanska",
+                age: 21,
+                studyLine: "MMD int",
+                skills: [
+                    "Dancing",
+                    "Watching Netflix",
+                    "Laughing"
+                ]
+            }, {
+                firstName: "Ludwina",
+                lastName: "Otto Dlugajczyk",
+                age: 40,
+                studyLine: "Multimedia design and communication at KEA (Copenhagen School of Design and Technology)",
+                skills: [
+                    "NGO's administration",
+                    "Microsoft Excel",
+                    "English",
+                    "Polish"
+                ]
+            }, {
+                firstName: "Jan",
+                lastName: "Ostrówka",
+                age: 20,
+                studyLine: "lynda.com",
+                skills: [
+                    "Ps",
+                    "Lr",
+                    "Pr",
+                    "Ae",
+                    "html",
+                    "css",
+                    "js"
+                ]
+            }, {
+                firstName: "Paulina",
+                lastName: "Borowiecka",
+                age: 23,
+                studyLine: "MMD",
+                skills: [,
+                    "swimming",
+                    "programming (I wish :D)",
+                    "dancing"
+                ]
+            }, {
+                firstName: "Alex",
+                lastName: "Lenta",
+                age: 21,
+                studyLine: "MMD",
+                skills: [
+                    "Bartending",
+                    "Biking",
+                    "DJ-ing",
+                    "Reading"
+                ]
+            }, {
+                firstName: "Antonia",
+                lastName: "Hackenberger",
+                age: 30,
+                studyLine: "MMD",
+                skills: [
+                    "HTML",
+                    "CSS",
+                    "design",
+                    "sleeping in"
+                ]
+            }, {
+                firstName: "Danny",
+                lastName: "Samarov",
+                age: 21,
+                studyLine: "MultimediaDesign and Communication",
+                skills: [
+                    "Photoshop",
+                    "Filmmaking",
+                    "Dancing",
+                    "Photography"
+                ]
+            }, {
+                firstName: "Denise",
+                lastName: "Tan",
+                age: 30,
+                studyLine: "MMD int",
+                skills: [
+                    "Sleeping",
+                    "Drinking Coffee",
+                    "Dancing"
+
+                ]
+
+
+            }, {
+                firstName: "Artjoms",
+                lastName: "Turks",
+                age: 20,
+                studyLine: "lynda.com",
+                skills: [
+                    "Hit the ball with the hand",
+                    "Press the keyboard button"
+                ]
+            }, {
+                fristName: "Jessica",
+                lastName: "Kaplan",
+                age: 23,
+                studyLine: "Multimedia design and communication",
+                skills: [
+                    "Sleeping",
+                    "Painting",
+                    "Cooking"
+                ]
+            }, {
+                firstName: "Joshua",
+                lastName: "Kaplan",
+                age: 22,
+                studyLine: "Multimedia Design & Communication",
+                skills: [
+                    "Coding",
+                    "Bartending",
+                    "Gaming",
+                    "Sleeping",
+                    "Photoshop",
+                    "Fruity Loops"
+                ]
+            }, {
+                firstName: "Juliana",
+                lastNme: "Mota",
+                age: 29,
+                studyLine: "Multimedia Design Communication",
+                skills: [
+                    "JS",
+                    "HTML and CSS",
+                    "Adobe Photoshop",
+                    "Adobe Illustrator",
+                    "Painting"
+                ]
+            }, {
+                firstName: "Laura",
+                lastName: "Ribeiro",
+                age: 37,
+                studyLine: "mmd",
+                skills: [
+                    "gaming",
+                    "fooding",
+                    "coffee"
+                ]
+            }, {
+                firstName: "Lavinia",
+                lastName: "Marcu",
+                age: 20,
+                studyLine: "MMD",
+                skills: [
+                    "Dancing",
+                    "Writing",
+                    "Cooking"
+                ]
+
+            },
+
+            {
+                firstName: "Leonardo",
+                lastName: "Pedrazzoli",
+                age: 37,
+                studyLine: "MMD",
+                skills: [
+                    "Drink beer",
+                    "Sports"
+                ]
+            }, {
+                firstName: "Maja",
+                lastName: "Kristjansson",
+                age: 49,
+                studyLine: "Multi Media Design",
+                skills: [
+                    "Singing",
+                    "Dancing Salsa",
+                    "Photography",
+                    "Gardening"
+                ]
+            }, {
+                firstName: "Marta",
+                lastName: "Netza",
+                age: 33,
+                studyLine: "multimedia design",
+                skills: [
+                    "JS",
+                    "Photoshop",
+                    "Photography"
+                ]
+            }, {
+                firstname: "Natalia",
+                lastName: "Rogon",
+                age: 22,
+                studyLine: "MMD",
+                skills: [
+                    "content production",
+                    "drinking",
+                    "alcohol"
+                ]
+            }, {
+                firstName: "Nayeli",
+                lastName: "Gilbertson",
+                age: 21,
+                studyLine: "multiMedia",
+                skills: ["sewing",
+                    "swimming"
+                ]
+            }, {
+                firstName: "Rebecca",
+                lastName: "Francker",
+                age: 20,
+                studyLine: "mmd int",
+                skills: [
+                    "html",
+                    "css",
+                    "basketball"
+                ]
+
+            }, {
+                firstName: "Yordanka",
+                lastName: "Krasteva",
+                age: 32,
+                studyLine: "Multimedia Design and Communication",
+                skills: [
+                    "litJS",
+                    "HTML",
+                    "CSS"
+
+                ]
+            }, {
+                firstName: "Maria",
+                lastName: "Ernst",
+                age: 22,
+                studyLine: "MMD",
+                skills: [
+                    "eating",
+                    "sleeping",
+                    "dancing",
+                    "daydreaming"
+                ]
+            }
+        ];
+    </script>
+</body>
+
+</html>
