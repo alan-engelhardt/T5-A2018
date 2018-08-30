@@ -13,26 +13,53 @@
 				background-color: lightblue;
 				padding: .5em;
 			}
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: red;
+      }
+
 		</style>
 	</head>
 	<body>
 		<main></main>
 		<template id="myTemplate">
-			<section>
-				<h2>Header</h2>
-				<p>Paragraph</p>
-			</section>
+			<article>
+				<h2>NAME</h2>
+				<h3>YEAR - MONTH - DAY</h3>
+				<div class="avatar"></div>
+			</article>
 		</template>
 		<script>
+      const kid = {
+        birthDay: {
+          year: 2009,
+          month: 11,
+          day: 1
+        },
+        name: "Storm",
+        hairColor: "#c0ffee",
+        hobbies: [
+          "Handball", "Football", "Gaming"
+        ],
+        image: "storm.jpeg"
+      }
+
 			const temp = document.querySelector("#myTemplate").content;
 			const parent = document.querySelector("main");
+      const clone = temp.cloneNode(true);
 
-			for(let counter=1; counter<=10; counter++){
-				const clone = temp.cloneNode(true);
-				clone.querySelector("h2").textContent="Header " + counter;
-				clone.querySelector("p").textContent="Some paragraph copy related to article nr " + counter;
-				parent.appendChild(clone);
-			}
+      const h2 = clone.querySelector("h2");
+      h2.textContent = kid.name;
+
+      const h3 = clone.querySelector("h3");
+      h3.textContent = kid.birthDay.year + " - " + kid.birthDay.month + " - " + kid.birthDay.day;
+
+      const avatar = clone.querySelector(".avatar");
+      avatar.style.backgroundColor = kid.hairColor;
+      parent.appendChild(clone);
+
 
 		</script>
 	</body>
