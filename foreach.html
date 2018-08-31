@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+
+	</head>
+	<body>
+
+		<main>
+
+		</main>
+		<template id="productTemplate">
+			<article class="product">
+				<h1>NAME</h1>
+				<p>DESCRIPTION</p>
+			</article>
+		</template>
+		<script>
+			"use strict";
+
+			const productListEndpoint = "https://kea-alt-del.dk/t5/api/productlist";
+			const template = document.querySelector("#productTemplate").content;
+			const parent = document.querySelector("main");
+
+			fetch(productListEndpoint).then(event=>event.json()).then(data=>show(data));
+
+			function show(data){
+				data.forEach(product=>{
+					const clone = template.cloneNode(true);
+					clone.querySelector("h1").textContent=product.name;
+					clone.querySelector("p").textContent= product.shortdescription;
+					parent.appendChild(clone);
+				});
+			}
+
+
+
+
+
+
+
+
+		</script>
+	</body>
+</html>

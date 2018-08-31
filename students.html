@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Templates</title>
+		<style>
+			main{
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+				grid-gap: .5em;
+			}
+			article{
+				background-color: lightblue;
+				padding: .5em;
+			}
+		</style>
+	</head>
+	<body>
+		<main></main>
+		<template id="myTemplate">
+			<article>
+				<h2>NAME</h2>
+				<img>
+				<p>DESCRIPTION</p>
+			</article>
+		</template>
+		<script>
+			const link = "https://kea-alt-del.dk/t5/api/productlist";
+			const parent = document.querySelector("main");
+			const myTemplate = document.querySelector("#myTemplate").content;
+
+			fetch(link).then(promise=>promise.json()).then(data=>show(data));
+
+			function show(plist){
+				plist.forEach(product=>{
+					console.log(product.name);
+					const clone = myTemplate.cloneNode(true);
+					clone.querySelector("h2").textContent=product.name;
+					clone.querySelector("p").textContent=product.shortdescription;
+					parent.appendChild(clone);
+				});
+			}
+
+		</script>
+	</body>
+
+</html>
