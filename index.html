@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8">
 		<title>Templates</title>
@@ -9,31 +10,44 @@
 				grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 				grid-gap: .5em;
 			}
-			section{
+			article{
 				background-color: lightblue;
 				padding: .5em;
+			}
+			img{
+				width: 100%;
 			}
 		</style>
 	</head>
 	<body>
 		<main></main>
 		<template id="myTemplate">
-			<section>
-				<h2>Header</h2>
-				<p>Paragraph</p>
-			</section>
+			<article>
+				<h2>NAME</h2>
+				<img class="productImage">
+				<p>DESCRIPTION</p>
+			</article>
 		</template>
 		<script>
-			const temp = document.querySelector("#myTemplate").content;
+			const link = "https://kea-alt-del.dk/t5/api/productlist";
+			const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
 			const parent = document.querySelector("main");
+			const myTemplate = document.querySelector("#myTemplate").content;
 
-			for(let counter=1; counter<=10; counter++){
-				const clone = temp.cloneNode(true);
-				clone.querySelector("h2").textContent="Header " + counter;
-				clone.querySelector("p").textContent="Some paragraph copy related to article nr " + counter;
-				parent.appendChild(clone);
+			fetch(link).then(promise=>promise.json()).then(data=>show(data));
+
+			function show(plist){
+				plist.forEach(product=>{
+					console.log(product.name);
+					const clone = myTemplate.cloneNode(true);
+					clone.querySelector("h2").textContent=product.name;
+					clone.querySelector("p").textContent=product.shortdescription;
+					clone.querySelector(".productImage").src=imgbase + "small/" + product.image + "-sm.jpg";
+					parent.appendChild(clone);
+				});
 			}
 
 		</script>
 	</body>
+
 </html>
