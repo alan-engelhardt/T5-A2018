@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8">
 		<title>Templates</title>
@@ -9,17 +10,13 @@
 				grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 				grid-gap: .5em;
 			}
-			section{
+			article{
 				background-color: lightblue;
 				padding: .5em;
 			}
-      .avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: red;
-      }
-
+			img{
+				width: 100%;
+			}
 		</style>
 	</head>
 	<body>
@@ -27,39 +24,30 @@
 		<template id="myTemplate">
 			<article>
 				<h2>NAME</h2>
-				<h3>YEAR - MONTH - DAY</h3>
-				<div class="avatar"></div>
+				<img class="productImage">
+				<p>DESCRIPTION</p>
 			</article>
 		</template>
 		<script>
-      const kid = {
-        birthDay: {
-          year: 2009,
-          month: 11,
-          day: 1
-        },
-        name: "Storm",
-        hairColor: "#c0ffee",
-        hobbies: [
-          "Handball", "Football", "Gaming"
-        ],
-        image: "storm.jpeg"
-      }
-
-			const temp = document.querySelector("#myTemplate").content;
+			const link = "https://kea-alt-del.dk/t5/api/productlist";
+			const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
 			const parent = document.querySelector("main");
-      const clone = temp.cloneNode(true);
+			const myTemplate = document.querySelector("#myTemplate").content;
 
-      clone.querySelector("h2").textContent = kid.name;
+			fetch(link).then(promise=>promise.json()).then(data=>show(data));
 
-      const h3 = clone.querySelector("h3");
-      h3.textContent = kid.birthDay.year + " - " + kid.birthDay.month + " - " + kid.birthDay.day;
-
-      const avatar = clone.querySelector(".avatar");
-      avatar.style.backgroundColor = kid.hairColor;
-      parent.appendChild(clone);
-
+			function show(plist){
+				plist.forEach(product=>{
+					console.log(product.name);
+					const clone = myTemplate.cloneNode(true);
+					clone.querySelector("h2").textContent=product.name;
+					clone.querySelector("p").textContent=product.shortdescription;
+					clone.querySelector(".productImage").src=imgbase + "small/" + product.image + "-sm.jpg";
+					parent.appendChild(clone);
+				});
+			}
 
 		</script>
 	</body>
+
 </html>
