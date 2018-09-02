@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Petrograd</title>
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="petrograd.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#" title="Home">&#9729;</a></li>
+      <li><a href="#" class="active">Desserts</a></li>
+      <li><a href="#">Starters</a></li>
+      <li><a href="#">...</a></li>
+    </ul>
+  </nav>
+  <header>
+    <h1>Dishes</h1>
+  </header>
+  <template id="productTemplate">
+    <section>
+      <img  alt="" />
+      <h2>NAME</h2>
+      <p>SHORTDESC</p>
+      <aside>
+        <ul>
+          <li><span class="price">450</span> kr</li>
+          <li>IN STOCK</li>
+        </ul>
+        <button>Read More</button>
+      </aside>
+      <div class="discount">Discount</div>
+    </section>
+  </template>
+  <div class="grid"></div>
+
+  <script>
+			"use strict";
+
+			const productListEndpoint = "https://kea-alt-del.dk/t5/api/productlist";
+			const template = document.querySelector("#productTemplate").content;
+      const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
+			const parent = document.querySelector(".grid");
+
+			fetch(productListEndpoint).then(event=>event.json()).then(data=>show(data));
+
+			function show(data){
+				data.forEach(product=>{
+					const clone = template.cloneNode(true);
+					clone.querySelector("h2").textContent=product.name;
+					clone.querySelector("p").textContent= product.shortdescription;
+          clone.querySelector(".price").textContent = product.price;
+          clone.querySelector("img").src=imgbase + "small/" + product.image + "-sm.jpg";
+					parent.appendChild(clone);
+				});
+			}
+</script>
+
+</body>
+</html>
