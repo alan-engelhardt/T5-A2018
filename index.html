@@ -1,44 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-
 	<head>
 		<meta charset="UTF-8">
 		<title>Templates</title>
 		<style>
-			main{
+			*{
+				box-sizing: border-box;
+			}
+			nav{
+				background-color: #dee;
+				text-align: center;
+				padding: .5em;
+				margin: .5em;
+			}
+			a{
+				margin: .5em;
+			}
+			h2{
+				text-align: center;
+				background-color: #dee;
+				padding: .5em;
+				margin: 0;
+				grid-column: 1/-1;
+			}
+			section{
 				display: grid;
 				grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 				grid-gap: .5em;
+				margin: .5em;
 			}
 			article{
-				background-color: lightblue;
+				background-color: #dee;
 				padding: .5em;
 			}
 			img{
 				width: 100%;
 			}
+			.hide{
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
+		<nav></nav>
 		<main></main>
 		<template id="myTemplate">
 			<article>
-				<h2>NAME</h2>
 				<img class="productImage">
+				<h2>NAME</h2>
 				<p>DESCRIPTION</p>
 			</article>
 		</template>
 		<script>
-			const link = "https://kea-alt-del.dk/t5/api/productlist";
+			const pListLink = "https://kea-alt-del.dk/t5/api/productlist";
+			const catLink = "https://kea-alt-del.dk/t5/api/categories";
 			const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
-			const parent = document.querySelector("main");
+			const nav = document.querySelector("nav");
+			const main = document.querySelector("main");
 			const myTemplate = document.querySelector("#myTemplate").content;
 
-			fetch(link).then(promise=>promise.json()).then(data=>show(data));
+			fetch(catLink).then(promise=>promise.json()).then(data=>createCats(data));
+
+			function createCats(data){
+				data.forEach(cat=>{
+					const newSection = document.createElement("section");
+					const newH2 = document.createElement("h2");
+					const newLink = document.createElement("a");
+					newSection.id=cat;
+					newH2.textContent=cat;
+					newLink.textContent=cat;
+					newLink.href="#";
+					newLink.addEventListener("click", ()=>filter(cat));
+					nav.appendChild(newLink);
+					newSection.appendChild(newH2);
+					main.appendChild(newSection);
+				});
+				fetch(pListLink).then(promise=>promise.json()).then(data=>show(data));
+			}
+
+			function filter(cat){
+				document.querySelectorAll("main section").forEach(section=>{
+					if(section.id == cat){
+						section.classList.remove("hide");
+					}else{
+						section.classList.add("hide");
+					}
+				});
+			}
 
 			function show(plist){
 				plist.forEach(product=>{
-					console.log(product.name);
+					const parent = document.querySelector("#"+product.category);
 					const clone = myTemplate.cloneNode(true);
 					clone.querySelector("h2").textContent=product.name;
 					clone.querySelector("p").textContent=product.shortdescription;
