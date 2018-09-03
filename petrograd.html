@@ -11,7 +11,7 @@
   <nav>
     <ul>
       <li><a href="#" title="Home">&#9729;</a></li>
-      <li><a href="#" class="active">Desserts</a></li>
+      <li><button class="filter">Filter: discount only</button></li>
       <li><a href="#">Starters</a></li>
       <li><a href="#">...</a></li>
     </ul>
@@ -48,15 +48,45 @@
 
 			function show(data){
 				data.forEach(product=>{
-					const clone = template.cloneNode(true);
+
+          const clone = template.cloneNode(true);
 					clone.querySelector("h2").textContent=product.name;
 					clone.querySelector("p").textContent= product.shortdescription;
           clone.querySelector(".price").textContent = product.price;
           clone.querySelector("img").src=imgbase + "small/" + product.image + "-sm.jpg";
-					parent.appendChild(clone);
+          //console.log(product)
+					if(product.discount){
+            const newPrice = Math.round(product.price - product.price*product.discount/100);
+            clone.querySelector(".price").textContent = newPrice;
+            clone.querySelector("section").classList.add("filter-discount")
+          } else {
+            clone.querySelector(".discount").classList.add("hide");
+            //console.log("Not on discount")
+          }
+          //console.log(product)
+
+
+          parent.appendChild(clone);
 				});
 			}
+
+      document.querySelector("button.filter").addEventListener("click", ()=>{
+        console.log("WORKING")
+        document.querySelectorAll("section").forEach(section=>{
+          if(!section.classList.contains('filter-discount')){
+            section.classList.add("hide")
+          }
+        })
+      })
+
+
 </script>
+
+
+
+
+
+
 
 </body>
 </html>
