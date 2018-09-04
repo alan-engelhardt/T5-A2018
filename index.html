@@ -5,6 +5,9 @@
 		<meta charset="UTF-8">
 		<title>Templates</title>
 		<style>
+			body{
+				text-align: center;
+			}
 			main{
 				display: grid;
 				grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -14,7 +17,7 @@
 				background-color: lightblue;
 				padding: .5em;
 			}
-			img{
+			article img{
 				width: 100%;
 			}
 			nav{
@@ -43,9 +46,11 @@
 		<nav>
 			<a href="#" id="all">All</a>
 		</nav>
-		<div id="loader">LOADING DATA</div>
-		<main>
-		</main>
+
+		<img id="loader" src="pleasewait.gif">
+
+		<main></main>
+
 		<template id="myTemplate">
 			<article>
 				<h2>NAME</h2>
@@ -53,6 +58,7 @@
 				<p>DESCRIPTION</p>
 			</article>
 		</template>
+
 		<script>
 			const categoriesLink = "https://kea-alt-del.dk/t5/api/categories";
 			const productsByCatLink = "https://kea-alt-del.dk/t5/api/productlist?category=";
@@ -61,7 +67,7 @@
 			const nav = document.querySelector("nav");
 			const all = document.querySelector("#all");
 			const loader = document.querySelector("#loader");
-			const parent = document.querySelector("main");
+			const main = document.querySelector("main");
 			const myTemplate = document.querySelector("#myTemplate").content;
 
 			all.addEventListener("click", ()=>showOneCategory("all"));
@@ -80,7 +86,7 @@
 			}
 
 			function showOneCategory(category){
-				parent.textContent="";
+				main.textContent="";
 				loader.classList.remove("hide");
 				if(category=="all"){
 					fetch(productListLink).then(promise=>promise.json()).then(data=>show(data));
@@ -96,7 +102,7 @@
 					clone.querySelector("h2").textContent=product.name;
 					clone.querySelector("p").textContent=product.shortdescription;
 					clone.querySelector(".productImage").src=imgbase + "small/" + product.image + "-sm.jpg";
-					parent.appendChild(clone);
+					main.appendChild(clone);
 				});
 				loader.classList.add("hide");
 			}
