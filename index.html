@@ -17,9 +17,29 @@
 			img{
 				width: 100%;
 			}
+			nav{
+				display: flex;
+				justify-content: space-around;
+				background-color: lightblue;
+				margin-bottom: .5em;
+			}
+			a{
+				text-decoration: none;
+				text-align: center;
+				font-size: 1.5em;
+				line-height: 2em;
+				text-transform: uppercase;
+				width: 100%;
+			}
+			a:hover{
+				background-color: orange;
+			}
 		</style>
 	</head>
 	<body>
+		<nav>
+			<a href="#" id="all">All</a>
+		</nav>
 		<main></main>
 		<template id="myTemplate">
 			<article>
@@ -29,14 +49,42 @@
 			</article>
 		</template>
 		<script>
-			const link = "https://kea-alt-del.dk/t5/api/productlist";
+			const clink = "https://kea-alt-del.dk/t5/api/categories";
+			const cplink = "https://kea-alt-del.dk/t5/api/productlist?category=";
+			const plink = "https://kea-alt-del.dk/t5/api/productlist";
 			const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
+			const nav = document.querySelector("nav");
+			const all = document.querySelector("#all");
 			const parent = document.querySelector("main");
 			const myTemplate = document.querySelector("#myTemplate").content;
 
-			fetch(link).then(promise=>promise.json()).then(data=>show(data));
+			all.addEventListener("click", ()=>showOneCat("all"));
+
+			fetch(clink).then(promise=>promise.json()).then(data=>catb(data));
+
+			function catb(data){
+				data.forEach(cat=>{
+					const a = document.createElement("a");
+					a.textContent=cat;
+					a.href="#";
+					a.addEventListener("click", ()=>showOneCat(cat));
+					nav.appendChild(a);
+				});
+				fetch(plink).then(promise=>promise.json()).then(data=>show(data));
+			}
+
+			function showOneCat(cat){
+				if(cat=="all"){
+					fetch(plink).then(promise=>promise.json()).then(data=>show(data));
+				}else{
+					fetch(cplink+cat).then(promise=>promise.json()).then(data=>show(data));
+				}
+			}
+
+			//fetch(plink).then(promise=>promise.json()).then(data=>show(data));
 
 			function show(plist){
+				parent.textContent="";
 				plist.forEach(product=>{
 					console.log(product.name);
 					const clone = myTemplate.cloneNode(true);
