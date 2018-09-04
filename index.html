@@ -3,10 +3,12 @@
 
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Templates</title>
 		<style>
 			body{
 				text-align: center;
+				font-family: sans-serif;
 			}
 			main{
 				display: grid;
@@ -17,21 +19,20 @@
 				background-color: lightblue;
 				padding: .5em;
 			}
-			article img{
-				width: 100%;
+			img{
+				max-width: 100%;
 			}
 			nav{
-				display: flex;
-				justify-content: space-around;
 				background-color: lightblue;
 				margin-bottom: .5em;
 			}
 			a{
+				display: block;
 				text-decoration: none;
 				text-align: center;
-				font-size: 1.5em;
+				font-size: 1.3em;
 				line-height: 2em;
-				text-transform: uppercase;
+				text-transform: capitalize;
 				width: 100%;
 			}
 			a:hover{
@@ -39,6 +40,12 @@
 			}
 			.hide{
 				display: none;
+			}
+			@media screen and (min-width: 600px) {
+				nav{
+					display: flex;
+					justify-content: space-around;
+				}
 			}
 		</style>
 	</head>
