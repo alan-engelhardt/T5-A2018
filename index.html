@@ -34,13 +34,18 @@
 			a:hover{
 				background-color: orange;
 			}
+			.hide{
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
 		<nav>
 			<a href="#" id="all">All</a>
 		</nav>
-		<main></main>
+		<div id="loader">LOADING DATA</div>
+		<main>
+		</main>
 		<template id="myTemplate">
 			<article>
 				<h2>NAME</h2>
@@ -49,43 +54,43 @@
 			</article>
 		</template>
 		<script>
-			const clink = "https://kea-alt-del.dk/t5/api/categories";
-			const cplink = "https://kea-alt-del.dk/t5/api/productlist?category=";
-			const plink = "https://kea-alt-del.dk/t5/api/productlist";
+			const categoriesLink = "https://kea-alt-del.dk/t5/api/categories";
+			const productsByCatLink = "https://kea-alt-del.dk/t5/api/productlist?category=";
+			const productListLink = "https://kea-alt-del.dk/t5/api/productlist";
 			const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
 			const nav = document.querySelector("nav");
 			const all = document.querySelector("#all");
+			const loader = document.querySelector("#loader");
 			const parent = document.querySelector("main");
 			const myTemplate = document.querySelector("#myTemplate").content;
 
-			all.addEventListener("click", ()=>showOneCat("all"));
+			all.addEventListener("click", ()=>showOneCategory("all"));
 
-			fetch(clink).then(promise=>promise.json()).then(data=>catb(data));
+			fetch(categoriesLink).then(promise=>promise.json()).then(data=>createCatLinks(data));
 
-			function catb(data){
+			function createCatLinks(data){
 				data.forEach(cat=>{
 					const a = document.createElement("a");
 					a.textContent=cat;
 					a.href="#";
-					a.addEventListener("click", ()=>showOneCat(cat));
+					a.addEventListener("click", ()=>showOneCategory(cat));
 					nav.appendChild(a);
 				});
-				fetch(plink).then(promise=>promise.json()).then(data=>show(data));
+				fetch(productListLink).then(promise=>promise.json()).then(data=>show(data));
 			}
 
-			function showOneCat(cat){
-				if(cat=="all"){
-					fetch(plink).then(promise=>promise.json()).then(data=>show(data));
+			function showOneCategory(category){
+				parent.textContent="";
+				loader.classList.remove("hide");
+				if(category=="all"){
+					fetch(productListLink).then(promise=>promise.json()).then(data=>show(data));
 				}else{
-					fetch(cplink+cat).then(promise=>promise.json()).then(data=>show(data));
+					fetch(productsByCatLink+category).then(promise=>promise.json()).then(data=>show(data));
 				}
 			}
 
-			//fetch(plink).then(promise=>promise.json()).then(data=>show(data));
-
-			function show(plist){
-				parent.textContent="";
-				plist.forEach(product=>{
+			function show(products){
+				products.forEach(product=>{
 					console.log(product.name);
 					const clone = myTemplate.cloneNode(true);
 					clone.querySelector("h2").textContent=product.name;
@@ -93,6 +98,7 @@
 					clone.querySelector(".productImage").src=imgbase + "small/" + product.image + "-sm.jpg";
 					parent.appendChild(clone);
 				});
+				loader.classList.add("hide");
 			}
 
 		</script>
