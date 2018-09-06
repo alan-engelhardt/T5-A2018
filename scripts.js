@@ -1,6 +1,11 @@
 const catLink = "https://kea-alt-del.dk/t5/api/categories";
 const pListLink = "https://kea-alt-del.dk/t5/api/productlist";
 const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
+
+const pLink = "https://kea-alt-del.dk/t5/api/product?id=";
+
+const modal = document.querySelector("#modal");
+
 const main = document.querySelector("main");
 const nav = document.querySelector("nav");
 const allLink = document.querySelector("#allLink");
@@ -45,6 +50,29 @@ function show(plist){
 		clone.querySelector("h2").textContent=product.name;
 		clone.querySelector("p").textContent=product.shortdescription;
 		clone.querySelector(".productImage").src=imgbase + "small/" + product.image + "-sm.jpg";
+		clone.querySelector("button").addEventListener("click", ()=>fetch(pLink+product.id).then(promise=>promise.json()).then(data=>showDetails(data)));
 		parent.appendChild(clone);
 	});
 }
+
+function showDetails(product){
+	console.log(product);
+	modal.querySelector("h2").textContent=product.name;
+	modal.querySelector("p").textContent=product.longdescription;
+	modal.classList.remove("hide");
+}
+
+modal.addEventListener("click", ()=>modal.classList.add("hide"));
+
+
+
+
+
+
+
+
+
+
+
+
+
