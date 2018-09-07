@@ -1,20 +1,24 @@
+"use strict";
+
 const catLink = "https://kea-alt-del.dk/t5/api/categories";
 const pListLink = "https://kea-alt-del.dk/t5/api/productlist";
 const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
-
 const pLink = "https://kea-alt-del.dk/t5/api/product?id=";
 
 const modal = document.querySelector("#modal");
-const discountFilter = document.querySelector("#discount-filter")
+const discountFilter = document.querySelector("#discount-filter");
 
 const main = document.querySelector("main");
 const nav = document.querySelector("nav");
 const allLink = document.querySelector("#allLink");
 const myTemplate = document.querySelector("#myTemplate").content;
 
+let filters = [];
+
 allLink.addEventListener("click", ()=>filterBy("all"));
 
 function filterBy(category){
+	filters.push("catgory");
 	document.querySelectorAll("section").forEach(section=>{
 		if(section.id == category || category == "all"){
 			section.classList.remove("hide");
@@ -26,6 +30,7 @@ function filterBy(category){
 }
 
 discountFilter.addEventListener("click", ()=>{
+	filters.push("discount");
 	document.querySelectorAll("section").forEach(section => {
 		if(section.classList.contains("has-discount")){
 			section.classList.remove("hide");
@@ -33,7 +38,7 @@ discountFilter.addEventListener("click", ()=>{
 				if(!article.classList.contains("has-discount")){
 					article.classList.add("hide");
 				}
-			})
+			});
 		}else{
 			section.classList.add("hide");
 		}
@@ -66,28 +71,33 @@ function show(plist){
 		const clone = myTemplate.cloneNode(true);
 		clone.querySelector("h2").textContent=product.name;
 		clone.querySelector(".description").textContent=product.shortdescription;
-		clone.querySelector(".price").textContent=product.price;
+		clone.querySelector(".price span").textContent=product.price;
 		clone.querySelector(".productImage").src=imgbase + "small/" + product.image + "-sm.jpg";
-		clone.querySelector(".details-button").addEventListener("click", ()=>fetch(pLink+product.id).then(promise=>promise.json()).then(data=>showDetails(data)));
+		clone.querySelector(".details-button").addEventListener("click", ()=>{
+			modal.classList.remove("hide");
+			fetch(pLink+product.id).then(promise=>promise.json()).then(data=>showDetails(data))
+		});
 
-		if (product.discount) {
+		if(product.discount){
 			const newPrice = Math.round(product.price - product.price * product.discount / 100);
 			clone.querySelector(".discount-price span").textContent = newPrice;
 			clone.querySelector("article").classList.add("has-discount");
 			parent.classList.add("has-discount");
 		} else {
 			clone.querySelector(".discount-price").classList.add("hide");
-			//console.log("Not on discount")
 		}
+
+		if(product.soldout){
+			clone.querySelector(".soldout").classList.remove("hide");
+		}
+
 		parent.appendChild(clone);
 	});
 }
 
 function showDetails(product){
-	console.log(product);
 	modal.querySelector("h2").textContent=product.name;
 	modal.querySelector("p").textContent=product.longdescription;
-	modal.classList.remove("hide");
 }
 
 modal.addEventListener("click", ()=>modal.classList.add("hide"));

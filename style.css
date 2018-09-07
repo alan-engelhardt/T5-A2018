@@ -3,6 +3,8 @@ body{
 	--bg-color: #def;
 	--border: 2px solid var(--bg-color);
 	--padding: 1em;
+	--opacity: .9;
+	--rotattion: rotate(40deg);
 }
 section{
 	display: grid;
@@ -23,13 +25,25 @@ section>h2{
 }
 .discount-price{
 	position: absolute;
-	transform: rotate(40deg);
+	transform: var(--rotattion);
 	top: 1em;
 	right: 0;
 	background-color: yellow;
+	opacity: .9;
 	padding: var(--padding);
 }
-
+.soldout{
+	color: white;
+	justify-content: center;
+	text-align: center;
+	position: absolute;
+	width: calc(100% - 4em);
+	top: 40%;
+	background-color: red;
+	padding: 1em;
+	opacity: .9;
+	transform: rotate(40deg);
+}
 img{
 	width: 100%;
 }
