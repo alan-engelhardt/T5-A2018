@@ -5,6 +5,7 @@ const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
 const pLink = "https://kea-alt-del.dk/t5/api/product?id=";
 
 const modal = document.querySelector("#modal");
+const discountFilter = document.querySelector("#discount-filter")
 
 const main = document.querySelector("main");
 const nav = document.querySelector("nav");
@@ -12,6 +13,14 @@ const allLink = document.querySelector("#allLink");
 const myTemplate = document.querySelector("#myTemplate").content;
 
 allLink.addEventListener("click", ()=>filterBy("all"));
+
+discountFilter.addEventListener("click", () => {
+	document.querySelectorAll("article").forEach(article => {
+		if (!article.classList.contains('has-discount')) {
+			article.classList.toggle("hide");
+		}
+	})
+})
 
 fetch(catLink).then(promise=>promise.json()).then(data=>buildCategories(data));
 
@@ -48,9 +57,20 @@ function show(plist){
 		const parent = document.querySelector("#"+product.category);
 		const clone = myTemplate.cloneNode(true);
 		clone.querySelector("h2").textContent=product.name;
-		clone.querySelector("p").textContent=product.shortdescription;
+		clone.querySelector(".description").textContent=product.shortdescription;
+		clone.querySelector(".price").textContent=product.price;
 		clone.querySelector(".productImage").src=imgbase + "small/" + product.image + "-sm.jpg";
-		clone.querySelector("button").addEventListener("click", ()=>fetch(pLink+product.id).then(promise=>promise.json()).then(data=>showDetails(data)));
+		clone.querySelector(".details-button").addEventListener("click", ()=>fetch(pLink+product.id).then(promise=>promise.json()).then(data=>showDetails(data)));
+
+		if (product.discount) {
+			const newPrice = Math.round(product.price - product.price * product.discount / 100);
+			clone.querySelector(".discount-price span").textContent = newPrice;
+			clone.querySelector("article").classList.add("has-discount");
+		} else {
+			clone.querySelector(".discount-price").classList.add("hide");
+			//console.log("Not on discount")
+		}
+
 		parent.appendChild(clone);
 	});
 }
@@ -63,9 +83,6 @@ function showDetails(product){
 }
 
 modal.addEventListener("click", ()=>modal.classList.add("hide"));
-
-
-
 
 
 
