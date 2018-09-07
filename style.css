@@ -50,6 +50,7 @@ a:hover{
 	background-color: beige;
 	margin: 2em;
 	padding: 2em;
+	overflow: auto; /* this prevents the page from "jumping" when the opens */
 }
 
 
