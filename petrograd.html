@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Petrograd</title>
-  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200,400,700" rel="stylesheet">
-  <link rel="stylesheet" href="petrograd.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Petrograd</title>
+	<link href="https://fonts.googleapis.com/css?family=Titillium+Web:200,400,700" rel="stylesheet">
+	<link rel="stylesheet" href="petrograd.css">
 </head>
+
 <body>
-  <nav>
-    <ul>
-      <li><a href="#" title="Home">&#9729;</a></li>
-      <li><button class="filter">Filter: discount only</button></li>
-      <li><a href="#">Starters</a></li>
-      <li><a href="#">...</a></li>
-    </ul>
-  </nav>
-  <header>
-    <h1>Dishes</h1>
-  </header>
-  <template id="productTemplate">
+	<nav>
+		<ul>
+			<li><a href="#" title="Home">&#9729;</a></li>
+			<li><button class="filter">Filter: discount only</button></li>
+			<li><a href="#">Starters</a></li>
+			<li><a href="#">...</a></li>
+		</ul>
+	</nav>
+	<header>
+		<h1>Dishes</h1>
+	</header>
+	<template id="productTemplate">
     <section>
       <img  alt="" />
       <h2>NAME</h2>
@@ -34,59 +35,44 @@
       <div class="discount">Discount</div>
     </section>
   </template>
-  <div class="grid"></div>
+	<div class="grid"></div>
 
-  <script>
-			"use strict";
+	<script>
+		"use strict";
 
-			const productListEndpoint = "https://kea-alt-del.dk/t5/api/productlist";
-			const template = document.querySelector("#productTemplate").content;
-      const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
-			const parent = document.querySelector(".grid");
+		const productListEndpoint = "https://kea-alt-del.dk/t5/api/productlist";
+		const template = document.querySelector("#productTemplate").content;
+		const imgbase = "https://kea-alt-del.dk/t5/site/imgs/";
+		const parent = document.querySelector(".grid");
 
-			fetch(productListEndpoint).then(event=>event.json()).then(data=>show(data));
+		fetch(productListEndpoint).then(event => event.json()).then(data => show(data));
 
-			function show(data){
-				data.forEach(product=>{
+		function show(data) {
+			data.forEach(product => {
+				const clone = template.cloneNode(true);
+				clone.querySelector("h2").textContent = product.name;
+				clone.querySelector("p").textContent = product.shortdescription;
+				clone.querySelector(".price").textContent = product.price;
+				clone.querySelector("img").src = imgbase + "small/" + product.image + "-sm.jpg";
+				if (product.discount) {
+					const newPrice = Math.round(product.price - product.price * product.discount / 100);
+					clone.querySelector(".price").textContent = newPrice;
+					clone.querySelector("section").classList.add("filter-discount")
+				} else {
+					clone.querySelector(".discount").classList.add("hide");
+				}
+				parent.appendChild(clone);
+			});
+		}
 
-          const clone = template.cloneNode(true);
-					clone.querySelector("h2").textContent=product.name;
-					clone.querySelector("p").textContent= product.shortdescription;
-          clone.querySelector(".price").textContent = product.price;
-          clone.querySelector("img").src=imgbase + "small/" + product.image + "-sm.jpg";
-          //console.log(product)
-					if(product.discount){
-            const newPrice = Math.round(product.price - product.price*product.discount/100);
-            clone.querySelector(".price").textContent = newPrice;
-            clone.querySelector("section").classList.add("filter-discount")
-          } else {
-            clone.querySelector(".discount").classList.add("hide");
-            //console.log("Not on discount")
-          }
-          //console.log(product)
-
-
-          parent.appendChild(clone);
-				});
-			}
-
-      document.querySelector("button.filter").addEventListener("click", ()=>{
-        console.log("WORKING")
-        document.querySelectorAll("section").forEach(section=>{
-          if(!section.classList.contains('filter-discount')){
-            section.classList.add("hide")
-          }
-        })
-      })
-
-
-</script>
-
-
-
-
-
-
+		document.querySelector("button.filter").addEventListener("click", () => {
+			document.querySelectorAll("section").forEach(section => {
+				if (!section.classList.contains('filter-discount')) {
+					section.classList.add("hide");
+				}
+			})
+		})
+	</script>
 
 </body>
 </html>
