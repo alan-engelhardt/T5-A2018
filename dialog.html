@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    dialog::backdrop {
+      background: rgba(0,0,155,1);
+    }
+    dialog {
+      border-radius: 5px;
+    }
+  </style>
+
+</head>
+<body>
+
+<dialog id="favDialog">
+  <form method="dialog">
+    <p><label>Favorite animal:
+      <select>
+        <option></option>
+        <option>Brine shrimp</option>
+        <option>Red panda</option>
+        <option>Spider monkey</option>
+      </select>
+    </label></p>
+    <menu>
+      <button>Cancel</button>
+      <button>Confirm</button>
+    </menu>
+  </form>
+</dialog>
+
+<menu>
+  <button id="updateDetails">Update details</button>
+</menu>
+
+<script>
+  const updateButton = document.getElementById('updateDetails');
+  const favDialog = document.getElementById('favDialog');
+  console.dir(favDialog)
+  updateButton.addEventListener('click', function() {
+    favDialog.showModal();
+  });
+  </script>
+</body>
+</html>
