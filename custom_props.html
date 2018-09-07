@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>testing</title>
+		<style>
+
+			:root{
+				--main-bg-color: #bada55;
+				--second-bg-color: rgba(0, 0, 0, .1);
+				--main-text-color: white;
+				--main-padding: 50px;
+				--border: dotted 2px red;
+			}
+
+			main{
+				background-color: var(--main-bg-color);
+				color: var(--main-text-color);
+				width: calc(100% / 3);
+				height: calc(100vh - 100px);
+				background-image: url(hand.gif);
+				background-repeat: no-repeat;
+				background-position: calc(100% - 5em) calc(100% - 50px);
+			}
+			h1{
+				color: var(--main-text-color);
+				padding: calc(var(--main-padding) / 2);
+				border: var(--border);
+			}
+			p{
+				background-color: var(--second-bg-color);
+				color: var(--main-text-color);
+				padding: calc(var(--main-padding) + .5em);
+				border: var(--border);
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1>Header text</h1>
+			<p>Some text goes her Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste velit quo voluptates illum, consequuntur id dignissimos, saepe laudantium corporis autem repudiandae voluptatibus accusamus natus mollitia harum quas ipsa rem dolore!</p>
+		</main>
+	</body>
+</html>
