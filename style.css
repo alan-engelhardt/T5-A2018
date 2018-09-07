@@ -1,5 +1,8 @@
 body{
 	font-family: sans-serif;
+	--bg-color: #def;
+	--border: 2px solid var(--bg-color);
+	--padding: 1em;
 }
 section{
 	display: grid;
@@ -8,22 +11,23 @@ section{
 }
 article{
 	position: relative;
-	background-color: lightblue;
-	padding: .5em;
+	border: var(--border);
+	padding: var(--padding);
 }
-section h2{
+section>h2{
 	grid-column: 1/-1;
-	background-color: lightblue;
+	background-color: var(--bg-color);
 	line-height: 2em;
 	padding-left: 1em;
 	text-transform: capitalize;
 }
 .discount-price{
-    position: absolute;
-    bottom: 1.3em;
-    left: .5em;
-    background-color: yellow;
-    padding: .5em;
+	position: absolute;
+	transform: rotate(40deg);
+	top: 1em;
+	right: 0;
+	background-color: yellow;
+	padding: var(--padding);
 }
 
 img{
@@ -40,7 +44,7 @@ a{
 	font-size: 1.3em;
 }
 a:hover{
-	background-color: lightblue;
+	background-color: var(--bg-color);
 }
 .hide{
 	display: none;
