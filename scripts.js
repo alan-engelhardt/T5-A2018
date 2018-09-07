@@ -89,6 +89,7 @@ function show(plist){
 
 		if(product.soldout){
 			clone.querySelector(".soldout").classList.remove("hide");
+			clone.querySelector("article").classList.add("is-soldout");
 		}
 
 		parent.appendChild(clone);
