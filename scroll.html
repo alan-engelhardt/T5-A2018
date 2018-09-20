@@ -19,15 +19,13 @@
 			display: flex;
 			align-items: center;
 			z-index: 10;
-			background-color: yellow;
 			width: 100vw;
 		}
 
 		a {
 			margin: .5em;
 			padding: 1em;
-			background-color: red;
-			color: white;
+			background-color: white;
 			flex-grow: 1;
 			text-align: center;
 			text-decoration: none;
@@ -42,7 +40,7 @@
 			padding-left: 1em;
 			margin-bottom: 3em;
 			height: 180vh;
-			background-image: linear-gradient(blue, red);
+			background-image: linear-gradient(blue, cornflowerblue);
 			color: white;
 		}
 
@@ -60,9 +58,11 @@
 	<main>
 		<div id="e1">
 			<h1>Section A</h1>
+			<p>Marking the active link via scroll</p>
 		</div>
 		<div id="e2">
 			<h1>Section B</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus dolor distinctio, quo cupiditate voluptatibus enim perferendis, magnam, molestiae suscipit modi eos velit ipsa ullam vel odio vitae? Placeat provident, corporis!</p>
 		</div>
 		<div id="e3">
 			<h1>Section C</h1>
@@ -78,10 +78,10 @@
 		window.addEventListener('scroll', e => {
 			elms.forEach((elm, i) => {
 				const position = elm.offsetTop - window.pageYOffset;
-				if (elm.offsetTop - window.pageYOffset > -elm.offsetHeight && elm.offsetTop - window.pageYOffset < 1) {
-					links[i].style.background = "blue";
-				} else {
+				if (position > -elm.offsetHeight && position < 1) {
 					links[i].style.background = "red";
+				} else {
+					links[i].style.background = "white";
 				}
 			})
 		});
